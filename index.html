@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Брокерский Тест</title>
+    <style>
+        :root {
+            --color-primary: #1d7480;
+            --color-primary-hover: #175a62;
+            --color-bg: #faf8f6;
+            --color-surface: #ffffff;
+            --color-text: #133435;
+            --color-text-secondary: #626c71;
+            --color-border: #d4d4d0;
+            --color-success: #218d8d;
+            --color-error: #c01530;
+            --radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .header p {
+            margin: 8px 0 0 0;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-text);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--color-text);
+            background: var(--color-surface);
+            transition: border-color 0.2s;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(29, 116, 128, 0.1);
+        }
+
+        .question-block {
+            margin-bottom: 32px;
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 15px;
+            color: var(--color-text);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option:hover {
+            background: rgba(29, 116, 128, 0.05);
+            border-color: var(--color-primary);
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            margin: 0 12px 0 0;
+            cursor: pointer;
+            accent-color: var(--color-primary);
+        }
+
+        .radio-option label {
+            flex: 1;
+            cursor: pointer;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .btn-primary:disabled {
+            background: var(--color-text-secondary);
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--color-border);
+            color: var(--color-text);
+        }
+
+        .btn-secondary:hover {
+            background: #d4d4d0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--color-border);
+            border-radius: 2px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--color-success);
+        }
+
+        .success-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .info-box {
+            background: rgba(29, 116, 128, 0.08);
+            border-left: 4px solid var(--color-primary);
+            padding: 16px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--color-text);
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔷 Брокерский Тест</h1>
+            <p>Финансовый мониторинг групп</p>
+        </div>
+
+        <!-- STAGE 1: SELECT CLIENT -->
+        <div id="stage-select" class="card">
+            <div class="form-group">
+                <label class="form-label">Выберите вашу личность:</label>
+                <select id="client-select" required>
+                    <option value="">-- Выберите клиента --</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="startTest()">Начать тест</button>
+        </div>
+
+        <!-- STAGE 2: TEST QUESTIONS -->
+        <div id="stage-test" class="card hidden">
+            <div class="step-indicator" id="step-info"></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+
+            <div id="questions-container"></div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="previousQuestion()" id="btn-prev">← Назад</button>
+                <button class="btn btn-primary" onclick="nextQuestion()" id="btn-next">Далее →</button>
+            </div>
+        </div>
+
+        <!-- STAGE 3: RESULT -->
+        <div id="stage-result" class="card hidden">
+            <div class="success-message">
+                <div class="success-icon">✓</div>
+                <div class="success-title">Тест завершён</div>
+                <div class="success-text">
+                    Ожидайте извещений — отчет будет сформирован и отправлен фин друиду
+                </div>
+                <div class="info-box">
+                    <strong>Ваши данные:</strong><br>
+                    Клиент: <span id="result-client"></span><br>
+                    Сумма выплат: <span id="result-amount"></span><br>
+                    Вопросов ответлено: <span id="result-answered">5</span>/5
+                </div>
+                <button class="btn btn-primary" onclick="resetTest()" style="margin-top: 24px;">Начать заново</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CLIENTS DATA
+        const clients = [
+            { name: "Геннадий Корягин", amount: "2 376 285 ₽" },
+            { name: "Нелли Зверева", amount: "3 753 285 ₽" },
+            { name: "Валерий Голиков (+ Мария Реутова)", amount: "7 736 934 ₽" },
+            { name: "Елена Ишукова", amount: "3 275 265 ₽" },
+            { name: "Елена Макаренко", amount: "2 276 286 ₽" },
+            { name: "Евгений Храменков", amount: "7 286 386 ₽" },
+            { name: "Игорь Дунаев", amount: "3 264 275 ₽" },
+            { name: "Андрей Васильев", amount: "3 265 998 ₽" },
+            { name: "Татьяна Сычёва", amount: "~75 000 ₽" }
+        ];
+
+        // TEST QUESTIONS
+        const questions = [
+            {
+                title: "Какова ваша основная цель инвестирования?",
+                options: ["Долгосрочный рост капитала", "Получение дополнительного дохода", "Сохранение средств", "Спекуляция", "Другое"]
+            },
+            {
+                title: "Какой срок планируете вложить средства?",
+                options: ["До 1 года", "1-3 года", "3-5 лет", "Более 5 лет", "Не определён"]
+            },
+            {
+                title: "Ваш уровень финансовой грамотности?",
+                options: ["Начинающий", "Среднее", "Продвинутый", "Профессиональный", "Эксперт"]
+            },
+            {
+                title: "Какой риск готовы принять?",
+                options: ["Минимальный", "Низкий", "Средний", "Высокий", "Максимальный"]
+            },
+            {
+                title: "Как часто вы анализируете свои инвестиции?",
+                options: ["Ежедневно", "Еженедельно", "Ежемесячно", "Ежеквартально", "Редко"]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let selectedClient = null;
+        let answers = [];
+
+        // INIT
+        window.addEventListener('DOMContentLoaded', () => {
+            const select = document.getElementById('client-select');
+            clients.forEach((client, idx) => {
+                const option = document.createElement('option');
+                option.value = idx;
+                option.textContent = `${client.name} — ${client.amount}`;
+                select.appendChild(option);
+            });
+        });
+
+        // START TEST
+        function startTest() {
+            const select = document.getElementById('client-select');
+            if (!select.value) {
+                alert('Пожалуйста, выберите клиента');
+                return;
+            }
+
+            selectedClient = parseInt(select.value);
+            answers = new Array(questions.length).fill(null);
+            currentQuestion = 0;
+
+            document.getElementById('stage-select').classList.add('hidden');
+            document.getElementById('stage-test').classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        // RENDER QUESTION
+        function renderQuestion() {
+            const container = document.getElementById('questions-container');
+            const q = questions[currentQuestion];
+
+            let html = `
+                <div class="question-block">
+                    <div class="question-title">Вопрос ${currentQuestion + 1}: ${q.title}</div>
+                    <div class="radio-group">
+            `;
+
+            q.options.forEach((opt, idx) => {
+                const optionId = `option-${currentQuestion}-${idx}`;
+                const isChecked = answers[currentQuestion] === idx ? 'checked' : '';
+                html += `
+                    <label class="radio-option">
+                        <input type="radio" name="question-${currentQuestion}" value="${idx}" ${isChecked} id="${optionId}">
+                        <label for="${optionId}" style="margin: 0; cursor: pointer;">${opt}</label>
+                    </label>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // UPDATE PROGRESS
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-info').textContent = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
+
+            // UPDATE BUTTONS
+            document.getElementById('btn-prev').disabled = currentQuestion === 0;
+            document.getElementById('btn-next').textContent = currentQuestion === questions.length - 1 ? 'Завершить ✓' : 'Далее →';
+        }
+
+        // NEXT QUESTION
+        function nextQuestion() {
+            const selected = document.querySelector(`input[name="question-${currentQuestion}"]:checked`);
+            if (!selected) {
+                alert('Пожалуйста, выберите вариант ответа');
+                return;
+            }
+
+            answers[currentQuestion] = parseInt(selected.value);
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        // PREVIOUS QUESTION
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        // SHOW RESULT
+        function showResult() {
+            document.getElementById('stage-test').classList.add('hidden');
+            document.getElementById('stage-result').classList.remove('hidden');
+
+            const client = clients[selectedClient];
+            document.getElementById('result-client').textContent = client.name;
+            document.getElementById('result-amount').textContent = client.amount;
+        }
+
+        // RESET TEST
+        function resetTest() {
+            currentQuestion = 0;
+            selectedClient = null;
+            answers = [];
+
+            document.getElementById('stage-result').classList.add('hidden');
+            document.getElementById('stage-select').classList.remove('hidden');
+            document.getElementById('client-select').value = '';
+        }
+    </script>
+</body>
+</html>
